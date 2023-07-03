@@ -1,0 +1,41 @@
+#check{
+    height: 22px;
+    width: 100px;
+    margin-left: 20px;
+}
+
+#light{
+    height: 25px;
+    width: 25px;
+    margin: 20px;
+    border-radius: 50%;
+}
+
+input{
+    height: 30px;
+    width: 130px;
+    margin: 5px;
+    border-radius: 5px;
+    border: solid black 1px;
+    padding: 5px;
+}
+
+label{
+    font-size: 25px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 5px;
+}
+
+h3{
+    font-size: 35px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#back{
+    height: 30px;
+    width: 130px;
+    margin: 5px;
+    border-radius: 5px;
+    border: solid black 1px;
+    padding: 5px; 
+}

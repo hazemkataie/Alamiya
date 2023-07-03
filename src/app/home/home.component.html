@@ -1,0 +1,26 @@
+<div id="unit">
+    <h1>ALAMIYA</h1> <hr>
+    <button type="button" id="accounts" routerLink="/accounts">Accounts</button>
+    <input type="text" id="gram" [(ngModel)]="gram" placeholder="birim">
+    <header>
+        <button id="gold" (click)="gold()">Gold</button>
+        <button id="dolar" (click)="dolar()">Dolar</button>
+        <button id="euro" (click)="euro()">Euro</button>
+    </header>
+    <p *ngIf="goldButton">{{ gram }} Gram Altin alis fiyati: {{ gram * altinGramAlisFiyati }}</p>
+    <p *ngIf="goldButton">{{ gram }} Gram Altin satis fiyati: {{ gram * altinGramSatisFiyati }}</p>
+    <p *ngIf="dolarButton">{{ gram }} Gram Dolar alis fiyati: {{ gram * dolarAlisFiyati }}</p>
+    <p *ngIf="dolarButton">{{ gram }} Gram Dolar satis fiyati: {{ gram * dolarSatisFiyati }}</p>
+    <p *ngIf="euroButton">{{ gram }} Gram Euro alis fiyati: {{ gram * euroAlisFiyati }}</p>
+    <p *ngIf="euroButton">{{ gram }} Gram Euro satis fiyati: {{ gram * euroSatisFiyati }}</p>
+    <hr>
+    <button type="button" id="sell" (click)="sat()">Sell</button>
+    <button type="button" id="buy" (click)="satinAl()">Buy</button>
+</div>
+<div *ngIf="message" id="transactions">
+    <header>
+        <h2>Transactions</h2>
+    </header>
+    <hr>
+    <p style="padding: 10px;" [style.background]="messageColor">{{gram}} {{message}}</p>
+</div>

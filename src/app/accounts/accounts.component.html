@@ -1,0 +1,13 @@
+<div id="accountsDiv">
+    <h3>ACCOUNT 1</h3>
+    <button id="light" [style.background-color]="buttonColor"></button>
+    <label for="server1">SERVER</label>
+    <input id="server1" [(ngModel)]="server" placeholder="Type"/>
+    <label for="username1">USERNAME</label>
+    <input id="username1" [(ngModel)]="username" placeholder="Type"/>
+    <label for="password1">PASSWORD</label>
+    <input id="password1" [(ngModel)]="password" placeholder="Type"/>
+    <button id="check"(click)="check()">Submit</button>
+    <hr>
+    <button type="button" id="back" (click)="goBack()">Go back</button>
+</div>
