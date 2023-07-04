@@ -63,6 +63,13 @@ p{
     border: solid black 1px;
 }
 
+#live{
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    font-size: 20px;
+}
+
 #accounts:hover {
     background-color:darkcyan;
 }

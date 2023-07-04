@@ -1,7 +1,11 @@
 #check{
-    height: 22px;
-    width: 100px;
-    margin-left: 20px;
+    display: block;
+    height: 30px;
+    width: 130px;
+    margin: 5px;
+    border-radius: 5px;
+    border: solid black 1px;
+    padding: 5px; 
 }
 
 #light{
@@ -12,7 +16,7 @@
 }
 
 input{
-    height: 30px;
+    height: 20px;
     width: 130px;
     margin: 5px;
     border-radius: 5px;
@@ -38,4 +42,50 @@ h3{
     border-radius: 5px;
     border: solid black 1px;
     padding: 5px; 
+}
+
+#add{
+    height: 30px;
+    width: 130px;
+    margin: 5px;
+    border-radius: 5px;
+    border: solid black 1px;
+    padding: 5px; 
+}
+
+@media (max-width:920px) {
+
+    #accountsDiv{
+    display: inline-block;
+    }    
+
+    #light{
+        margin: 0;
+    }
+
+    #check{
+        display: block;
+        margin: 30px auto 10px auto;
+        
+    }
+
+    #back{
+        display: inline;
+        margin: 0 5px 0 auto;
+    }
+
+    #add{
+        display: inline;
+        margin: 0 auto 0 5px;
+    }
+    input{
+        display: inline-block;
+        width: 98%;
+        margin-left: 0;
+    }
+
+    #buttons{
+        display: flex;
+    }
+
 }

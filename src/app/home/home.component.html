@@ -1,6 +1,7 @@
 <div id="unit">
     <h1>ALAMIYA</h1> <hr>
     <button type="button" id="accounts" routerLink="/accounts">Accounts</button>
+    <p id="live" [(ngModel)]="liveAccounts">{{liveAccounts}} Live</p>
     <input type="text" id="gram" [(ngModel)]="gram" placeholder="birim">
     <header>
         <button id="gold" (click)="gold()">Gold</button>

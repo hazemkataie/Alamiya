@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Account } from '../account';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
 })
 
 export class HomeComponent {
+
   gram: number = 1;
   altinGramAlisFiyati: number = 1.609;
   altinGramSatisFiyati: number = 1.607;
@@ -19,6 +21,7 @@ export class HomeComponent {
   goldButton: string = '';
   dolarButton: string = '';
   euroButton: string = '';
+  liveAccounts: number = 0;
 
   gold(){
     this.goldButton = 'true';
@@ -64,6 +67,5 @@ export class HomeComponent {
     }
     this.messageColor = 'Red';
   }
-
   
 }
