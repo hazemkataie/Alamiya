@@ -71,11 +71,24 @@ p{
 }
 
 #accounts:hover {
-    background-color:darkcyan;
+    background-color:darkblue;
+    color: #ffffffff;
 }
 
 #gold{
     background-color: gold;
+}
+
+#gold:hover{
+    opacity: 0.7;
+}
+
+#dolar:hover{
+    opacity: 0.7;
+}
+
+#euro:hover{
+    opacity: 0.7;
 }
 
 #dolar{
