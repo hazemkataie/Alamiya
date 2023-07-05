@@ -19,13 +19,14 @@ export class AccountsComponent {
     private location: Location
   ){}
 
-  check(){
-    if(this.username.trim() != '' && this.password != 0 && this.server != 0){
+  check(account: Account){
+    if(account.username.trim() != '' && account.password != 0 && account.server != 0){
       this.buttonColor = 'green';
     }
     else {
       this.buttonColor = 'red';
     }
+    debugger
   }
   
   accounts: any[] = [

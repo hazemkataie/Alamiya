@@ -8,7 +8,7 @@
       <input id="username{{ account.id }}" [(ngModel)]="account.username" placeholder="Type"/>
       <label for="password{{ account.id }}">PASSWORD</label>
       <input id="password{{ account.id }}" [(ngModel)]="account.password" placeholder="Type"/>
-      <button id="check"(click)="check()">Submit</button>
+      <button id="check"(click)="check(account)">Submit</button>
       <hr>   
     </div>
 </div>
