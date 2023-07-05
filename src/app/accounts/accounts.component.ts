@@ -1,45 +1,49 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
-import { ACCOUNTS } from '../accounts';
 import { Account } from '../account';
+import { AccountsService } from '../alamiya.service.service';
 
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css']
 })
-
 export class AccountsComponent {
-  server: number = 0;
-  username: string = '';
-  password: number = 0;
-  buttonColor: string = 'red';
+
+
+  accounts: Account[] = [
+  { id: 1, server: 4200, username: '', password: null, status: false }
+  ];
+  
+  liveAccount: number = 0;
 
   constructor(
-    private location: Location
-  ){}
+    private location: Location,
+    private accountsService: AccountsService
+    ) {}
 
-  check(account: Account){
-    if(account.username.trim() != '' && account.password != 0 && account.server != 0){
-      this.buttonColor = 'green';
+    ngOnInit(): void {
+      const accounts = this.accountsService.getAccounts();
+      this.liveAccount = accounts.length;
+      this.accountsService.saveChanges();
     }
-    else {
-      this.buttonColor = 'red';
+
+  toggleStatus(account: Account) {
+    if(account.username.trim() === String(account.password)){
+      account.status = !account.status;
+      this.accountsService.saveChanges();
     }
-    debugger
+    
   }
-  
-  accounts: any[] = [
-    { id: 1, server: '', username: '', password: '' }
-  ];
 
   addAccount() {
-    const newId = this.accounts.length + 1;
-    this.accounts.push({ id: newId, server: '', username: '', password: '' });
+    const newId = this.accounts.length+1;
+    this.accounts.push({ id: newId, server: 4200 , username: '', password: null , status: false });
+    this.accountsService.saveChanges();
   }
 
   goBack(): void {
     this.location.back();
+    this.accountsService.saveChanges();
   }
-  
 }

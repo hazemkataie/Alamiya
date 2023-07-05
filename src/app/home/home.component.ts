@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Account } from '../account';
+import { AccountsService } from '../alamiya.service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +8,8 @@ import { Account } from '../account';
 })
 
 export class HomeComponent {
+
+  constructor(private accountsService: AccountsService) {}
 
   gram: number = 1;
   altinGramAlisFiyati: number = 1.609;
@@ -22,6 +24,13 @@ export class HomeComponent {
   dolarButton: string = '';
   euroButton: string = '';
   liveAccounts: number = 0;
+
+
+  ngOnInit(): void {
+    const accounts = this.accountsService.getAccounts();
+    this.liveAccounts = this.accountsService.getActiveAccountsCount();
+    this.accountsService.saveChanges();
+  }
 
   gold(){
     this.goldButton = 'true';

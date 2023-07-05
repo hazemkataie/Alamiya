@@ -1,20 +1,19 @@
 <div id="accountsDiv">
-    <div *ngFor="let account of accounts" [id]="'accountDiv' + account.id">
-      <h3>ACCOUNT {{ account.id }}</h3>
-      <button id="light" [style.background-color]="buttonColor"></button>
-      <label for="server{{ account.id }}">SERVER</label>
-      <input id="server{{ account.id }}" [(ngModel)]="account.server" placeholder="Type"/>
-      <label for="username{{ account.id }}">USERNAME</label>
-      <input id="username{{ account.id }}" [(ngModel)]="account.username" placeholder="Type"/>
-      <label for="password{{ account.id }}">PASSWORD</label>
-      <input id="password{{ account.id }}" [(ngModel)]="account.password" placeholder="Type"/>
-      <button id="check"(click)="check(account)">Submit</button>
-      <hr>   
-    </div>
+  <div *ngFor="let account of accounts" [id]="'accountDiv' + account.id">
+    <h3>ACCOUNT {{ account.id }}</h3>
+    <button id="light" [ngClass]="{'online': account.status, 'offline': !account.status}"></button>
+    <label for="server{{ account.id }}">SERVER</label>
+    <input id="server{{ account.id }}" [(ngModel)]="account.server" placeholder="Type" />
+    <label for="username{{ account.id }}">USERNAME</label>
+    <input id="username{{ account.id }}" [(ngModel)]="account.username" placeholder="Type" />
+    <label for="password{{ account.id }}">PASSWORD</label>
+    <input id="password{{ account.id }}" [(ngModel)]="account.password" placeholder="Type" />
+    <button id="check" (click)="toggleStatus(account)">{{ account.status ? 'Disconnect' : 'Connect' }}</button>
+    <hr>
+  </div>
 </div>
-  
+
 <div id="buttons">
-    <button type="button" id="back" (click)="goBack()">Go back</button>
-    <button type="button" id="add" (click)="addAccount()">Add Account</button>
+  <button type="button" id="back" (click)="goBack()">Go back</button>
+  <button type="button" id="add" (click)="addAccount()">Add Account</button>
 </div>
-  
