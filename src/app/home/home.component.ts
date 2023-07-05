@@ -11,7 +11,7 @@ export class HomeComponent {
 
   constructor(private accountsService: AccountsService) {}
 
-  gram: number = 1;
+  gram: number = null;
   altinGramAlisFiyati: number = 1.609;
   altinGramSatisFiyati: number = 1.607;
   dolarAlisFiyati: number = 23.156;

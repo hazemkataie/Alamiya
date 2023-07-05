@@ -9,41 +9,34 @@ import { AccountsService } from '../alamiya.service.service';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent {
-
-
-  accounts: Account[] = [
-  { id: 1, server: 4200, username: '', password: null, status: false }
-  ];
-  
+  accounts: Account[];
   liveAccount: number = 0;
 
   constructor(
     private location: Location,
     private accountsService: AccountsService
-    ) {}
+  ) {}
 
-    ngOnInit(): void {
-      const accounts = this.accountsService.getAccounts();
-      this.liveAccount = accounts.length;
-      this.accountsService.saveChanges();
-    }
+  ngOnInit(): void {
+    this.accounts = this.accountsService.getAccounts();
+    this.liveAccount = this.accounts.length;
+  }
 
   toggleStatus(account: Account) {
-    if(account.username.trim() === String(account.password)){
+    if (account.username.trim() === String(account.password)) {
       account.status = !account.status;
       this.accountsService.saveChanges();
     }
-    
   }
 
   addAccount() {
-    const newId = this.accounts.length+1;
-    this.accounts.push({ id: newId, server: 4200 , username: '', password: null , status: false });
+    const newId = this.accounts.length + 1;
+    this.accounts.push({ id: newId, server: 4200, username: '', password: null, status: false });
+    this.liveAccount = this.accounts.length;
     this.accountsService.saveChanges();
   }
 
   goBack(): void {
     this.location.back();
-    this.accountsService.saveChanges();
   }
 }
