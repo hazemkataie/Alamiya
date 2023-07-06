@@ -32,4 +32,12 @@ export class AccountsService {
   getActiveAccountsCount(): number {
     return this.accounts.filter(account => account.status).length;
   }
+
+  getActiveAccountsId(): number[] {
+    return this.accounts.filter(account => account.status).map(account => account.id);
+  } 
+  
+  getActiveAccounts(): [] {
+    return this.accounts.find(account => account.status);
+  }
 }

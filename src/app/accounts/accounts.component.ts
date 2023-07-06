@@ -23,7 +23,7 @@ export class AccountsComponent {
   }
 
   toggleStatus(account: Account) {
-    if (account.username.trim() === String(account.password)) {
+    if (account.username.trim() !== '' && account.password !== null) {
       account.status = !account.status;
       this.accountsService.saveChanges();
     }
@@ -34,6 +34,13 @@ export class AccountsComponent {
     this.accounts.push({ id: newId, server: 4200, username: '', password: null, status: false });
     this.liveAccount = this.accounts.length;
     this.accountsService.saveChanges();
+  }
+
+  deleteAccount(account: Account): void {
+    const index = this.accounts.findIndex(acc => acc === account);
+    if (index !== -1) {
+      this.accounts.splice(index, 1);
+    }
   }
 
   goBack(): void {

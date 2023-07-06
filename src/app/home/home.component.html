@@ -1,7 +1,13 @@
 <div id="unit">
     <h1>ALAMIYA</h1> <hr>
     <button type="button" id="accounts" routerLink="/accounts">Accounts</button>
-    <p id="live" [(ngModel)]="liveAccounts">{{liveAccounts}} Live</p>
+    <p *ngIf="liveAccountsCount !== 0" id="live">{{liveAccountsCount}} Accounts Connected</p>
+    <select #accounts (change)="onSelectAccount(accounts.value)" *ngIf="liveAccountsCount != 0" name="" id="selectAccount">
+        <option default>Select Account</option>
+        <option *ngFor="let liveaccount of liveAccountsId" [value]="liveaccount" [id]="'selectedAccount' + liveaccount" value="liveaccount">
+            Account {{ liveaccount }}
+        </option>
+    </select>
     <input type="text" id="gram" [(ngModel)]="gram" placeholder="Value">
     <header>
         <button id="gold" (click)="gold()">Gold</button>
@@ -23,5 +29,8 @@
         <h2>Transactions</h2>
     </header>
     <hr>
-    <p style="padding: 10px;" [style.background]="messageColor">{{gram}} {{message}}</p>
+    <p style="padding: 10px;" [style.background]="messageColor" [(ngModul)]="selectedAccountUsername">
+        {{ selectedAccountUsername }} made {{ gram }} {{ message }}
+    </p>
+      
 </div>

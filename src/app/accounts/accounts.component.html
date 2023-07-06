@@ -8,7 +8,9 @@
     <input id="username{{ account.id }}" [(ngModel)]="account.username" placeholder="Type" />
     <label for="password{{ account.id }}">PASSWORD</label>
     <input id="password{{ account.id }}" [(ngModel)]="account.password" placeholder="Type" />
-    <button id="check" (click)="toggleStatus(account)">{{ account.status ? 'Disconnect' : 'Connect' }}</button>
+    <br>
+    <button class="check" (click)="toggleStatus(account)">{{ account.status ? 'Disconnect' : 'Connect' }}</button>
+    <button class="check" (click)="deleteAccount(account)" >Delete Account</button>
     <hr>
   </div>
 </div>

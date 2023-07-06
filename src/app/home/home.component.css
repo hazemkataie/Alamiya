@@ -31,6 +31,7 @@ h1{
    width: 200px;
    font-size: 20px;
    margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 button{
@@ -54,8 +55,8 @@ p{
 
 #accounts{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 3px;
+    right: 3px;
     height: 57px;
     width: 57px;
     font-size: 10px;
@@ -65,8 +66,24 @@ p{
 
 #live{
     position: absolute;
-    top: 50px;
-    right: 15px;
+    top: 55px;
+    right: -2px;
+    font-size: 15px;
+    max-width: 95px;
+    max-height: 400px;
+    text-align: center;
+}
+
+#selectAccount{
+    text-align: center;
+    height: 45px;
+    width: 200px;
+    font-size: 20px;
+    margin: 10px 3px;
+}
+
+label{
+    margin-right: 5px;
     font-size: 20px;
 }
 

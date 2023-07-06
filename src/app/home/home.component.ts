@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountsService } from '../alamiya.service.service';
+import { Account } from '../account';
 
 @Component({
   selector: 'app-home',
@@ -23,14 +24,33 @@ export class HomeComponent {
   goldButton: string = '';
   dolarButton: string = '';
   euroButton: string = '';
-  liveAccounts: number = 0;
+  liveAccounts: [];
+  liveAccountsCount: number= null;
+  liveAccountsId: number[];
+  accounts = [];
 
+  selectedAccount: number;
+  selectedAccountUsername: string;
 
   ngOnInit(): void {
     const accounts = this.accountsService.getAccounts();
-    this.liveAccounts = this.accountsService.getActiveAccountsCount();
+    this.liveAccountsCount = this.accountsService.getActiveAccountsCount();
+    this.liveAccountsId = this.accountsService.getActiveAccountsId();
+    this.liveAccounts = this.accountsService.getActiveAccounts();
     this.accountsService.saveChanges();
   }
+
+  onSelectAccount(value:number): void {
+      this.selectedAccount = value;
+      // this.getSelectedAccountUsername();
+  }
+    
+  getSelectedAccountUsername(): void {
+    this.accounts = this.liveAccounts;
+    this.selectedAccountUsername = this.accounts.find(account => account.id === this.selectedAccount).map(account => account.username);
+  }
+
+  
 
   gold(){
     this.goldButton = 'true';
@@ -50,31 +70,48 @@ export class HomeComponent {
     this.euroButton = 'true';
   }
 
+
   satinAl() {
 
-    if (this.goldButton === 'true') {
-      this.message = 'Altin satin alma islemi';
+    if (this.goldButton === 'true' && this.gram != null) {
+      this.message = 'Gold purchases.';
+      this.messageColor = 'Green';
+      this.getSelectedAccountUsername();
     }
-    else if (this.dolarButton === 'true') {
-      this.message = 'Dolar satin alma islemi';
+    else if (this.dolarButton === 'true' && this.gram != null) {
+      this.message = 'Dolar purchases.';
+      this.messageColor = 'Green';
+      this.getSelectedAccountUsername();
     } 
-    else {
-      this.message = 'Euro satin alma islemi';  
+    else if (this.euroButton === 'true' && this.gram != null) {
+      this.message = 'Euro purchases.';  
+      this.messageColor = 'Green';
+      this.getSelectedAccountUsername();
     }
-    this.messageColor = 'Green';
+    else {
+      alert("Please enter the value!");
+    }
+    
   }
 
   sat() {
-    if (this.goldButton === 'true') {
-      this.message = 'Altin satma alma islemi';
+    if (this.goldButton === 'true' && this.gram != null) {
+      this.message = 'Gold sales transaction.';
+      this.messageColor = 'Red';
+      this.getSelectedAccountUsername();
     }
-    else if (this.dolarButton === 'true') {
-      this.message = 'Dolar satma alma islemi';
+    else if (this.dolarButton === 'true' && this.gram != null) {
+      this.message = 'Dolar sales transaction.';
+      this.messageColor = 'Red';
+      this.getSelectedAccountUsername();
     } 
-    else {
-      this.message = 'Euro satma alma islemi';  
+    else if (this.euroButton === 'true' && this.gram != null){
+      this.message = 'Euro sales transaction.';  
+      this.messageColor = 'Red';
+      this.getSelectedAccountUsername();
     }
-    this.messageColor = 'Red';
-  }
-  
+    else {
+      alert("Please enter the value!");
+    }
+  } 
 }
