@@ -3,7 +3,7 @@
     <button type="button" id="accounts" routerLink="/accounts">Accounts</button>
     <p *ngIf="liveAccountsCount !== 0" id="live">{{liveAccountsCount}} Accounts Connected</p>
     <select #accounts (change)="onSelectAccount(accounts.value)" *ngIf="liveAccountsCount != 0" name="" id="selectAccount">
-        <option default>Select Account</option>
+        <option disabled selected>Select Account</option>
         <option *ngFor="let liveaccount of liveAccountsId" [value]="liveaccount" [id]="'selectedAccount' + liveaccount" value="liveaccount">
             Account {{ liveaccount }}
         </option>
@@ -29,8 +29,8 @@
         <h2>Transactions</h2>
     </header>
     <hr>
-    <p style="padding: 10px;" [style.background]="messageColor" [(ngModul)]="selectedAccountUsername">
-        {{ selectedAccountUsername }} made {{ gram }} {{ message }}
-    </p>
+    <p style="padding: 10px;" [style.background]="messageColor">
+        {{ selectedAccountUsername || 'some text' }} made {{ gram }} {{ message }}
+    </p>    
       
 </div>

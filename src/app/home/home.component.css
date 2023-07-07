@@ -38,6 +38,16 @@ button{
     height: 40px;
     width: 100px;
     margin: 10px;
+    border-radius: 2px;
+    border: 0px solid black;
+}
+
+#buy{
+    border: 1px solid black;
+}
+
+#sell{
+    border: 1px solid black;
 }
 
 #buy:hover{
@@ -47,6 +57,7 @@ button{
 
 #sell:hover{
     background-color: red;
+    color: white;
 }
 
 p{
