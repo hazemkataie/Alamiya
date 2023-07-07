@@ -4,7 +4,7 @@
     <p *ngIf="liveAccountsCount !== 0" id="live">{{liveAccountsCount}} Accounts Connected</p>
     <select #accounts (change)="onSelectAccount(accounts.value)" *ngIf="liveAccountsCount != 0" name="" id="selectAccount">
         <option disabled selected>Select Account</option>
-        <option *ngFor="let liveaccount of liveAccountsId" [value]="liveaccount" [id]="'selectedAccount' + liveaccount" value="liveaccount">
+        <option *ngFor="let liveaccount of liveAccountsId" [value]="liveaccount" [id]="'selectedAccount' + liveaccount">
             Account {{ liveaccount }}
         </option>
     </select>

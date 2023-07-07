@@ -31,10 +31,18 @@ export class AccountsComponent {
   }
 
   addAccount() {
-    const newId = this.accounts.length + 1; // Generate a new ID for the account
-    this.accounts.push({ id: newId, server: 4200, username: '', password: null, status: false }); // Add a new account to the array
-    this.liveAccount = this.accounts.length; // Update the count of live accounts
-    this.accountsService.saveChanges(); // Save the changes to the accounts
+    if (this.accounts.length == 0) {
+      const newId = 1;
+      this.accounts.push({ id: newId, server: 4200, username: '', password: null, status: false }); // Add a new account to the array
+      this.liveAccount = this.accounts.length; // Update the count of live accounts
+      this.accountsService.saveChanges(); // Save the changes to the accounts
+    }
+    else {
+      const newId = this.accounts[this.accounts.length - 1].id + 1;
+      this.accounts.push({ id: newId, server: 4200, username: '', password: null, status: false }); // Add a new account to the array
+      this.liveAccount = this.accounts.length; // Update the count of live accounts
+      this.accountsService.saveChanges(); // Save the changes to the accounts
+    }
   }
 
   deleteAccount(account: Account): void {

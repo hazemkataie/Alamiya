@@ -1,5 +1,5 @@
 export interface Account {
-    id: Number;
+    id: number;
     server: number;
     username: string;
     password: number;
