@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Account ID {{data.id}}</h1>
+<div mat-dialog-content>
+  <p>Please enter the Server</p>
+  <mat-form-field>
+    <mat-label>Server</mat-label>
+    <input matInput [(ngModel)]="server">
+  </mat-form-field>
+  <p>Please enter your Username</p>
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="username">
+  </mat-form-field>
+  <br> 
+  <p>Please enter your Password</p> 
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="password">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="account" cdkFocusInitial>Login</button>
+</div>
