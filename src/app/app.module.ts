@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { AccountsService } from './alamiya.service.service';
-import { DialogOverviewExample } from './testing/testing.component';
 import { DialogOverviewExampleDialog } from './add-new-account-dialog/add-new-account-dialog.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +26,6 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    DialogOverviewExample,
     DialogOverviewExampleDialog,
     MatButtonModule,
     MatInputModule,

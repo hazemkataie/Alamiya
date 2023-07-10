@@ -38,7 +38,10 @@ export class AccountsComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.accounts = result;
+      console.log(result);
+      if (result) {
+        this.addAccount(result);
+      }
     });
   }
 
