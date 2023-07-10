@@ -2,21 +2,29 @@
   <div *ngFor="let account of accounts" [id]="'accountDiv' + account.id">
     <h3>ACCOUNT {{ account.id }}</h3>
     <button id="light" [ngClass]="{'online': account.status, 'offline': !account.status}"></button>
-    <mat-label for="server{{ account.id }}">SERVER</mat-label>
-    <input matInput id="server{{ account.id }}" [(ngModel)]="account.server" placeholder="Type" />
-    <mat-label for="username{{ account.id }}">USERNAME</mat-label>
-    <input matInput id="username{{ account.id }}" [(ngModel)]="account.username" placeholder="Type" />
-    <mat-label for="password{{ account.id }}">PASSWORD</mat-label>
-    <input matInput id="password{{ account.id }}" [(ngModel)]="account.password" placeholder="Type" />
-    <br>
-    <button mat-button class="check" (click)="toggleStatus(account)">{{ account.status ? 'Disconnect' : 'Connect' }}</button>
-    <button mat-button class="check" (click)="deleteAccount(account)">Delete Account</button>
+    <mat-form-field class="inputs">
+      <mat-label for="server{{ account.id }}">SERVER</mat-label>
+      <input matInput id="server{{ account.id }}" placeholder="4200" [(ngModel)]="account.server">
+    </mat-form-field>
+    <mat-form-field class="inputs">
+      <mat-label for="username{{account.id}}">USERNAME</mat-label>
+      <input matInput id="username{{account.id}}" placeholder="Type Username" [(ngModel)]="account.username">
+    </mat-form-field>
+    <mat-form-field class="inputs">
+      <mat-label for="password{{account.id}}">PASSWORD</mat-label>
+      <input matInput id="password{{account.id}}" type="password" placeholder="Type Password" [(ngModel)]="account.password">
+    </mat-form-field>
+      <div class="buttons">
+        <button mat-flat-button color="primary" (click)="toggleStatus(account)">{{ account.status ? 'Disconnect' : 'Connect' }}</button>
+        <button mat-raised-button color="warn" (click)="deleteAccount(account)">Delete Account</button>
+      </div>
+    
     <hr>
   </div>
 </div>
 
-<div id="buttons">
-  <button mat-button (click)="goBack()">Go back</button>
+<div class="buttons">
+  <button mat-raised-button (click)="goBack()">Go back</button>
   <!-- <button mat-button>Add Account</button> -->
-  <button mat-button (click)="openDialog()">Add New Account</button>
+  <button mat-raised-button (click)="openDialog()">Add New Account</button>
 </div>

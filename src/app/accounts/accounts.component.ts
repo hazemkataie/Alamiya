@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Account } from '../account';
 import { AccountsService } from '../alamiya.service.service';
 
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import {MatDialog } from '@angular/material/dialog';
 import { DialogOverviewExampleDialog } from '../add-new-account-dialog/add-new-account-dialog.component';
 
 
@@ -32,17 +32,34 @@ export class AccountsComponent {
   }
 
   openDialog(): void {
-    const newId = this.accounts[this.accounts.length - 1].id + 1;
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+    if (this.accounts.length !== 0) {
+      const newId = this.accounts[this.accounts.length - 1].id + 1;
+      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       data: {id:newId},
-    });
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
         this.addAccount(result);
       }
-    });
+      });
+    }
+
+    else {
+      const newId = 1;
+      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      data: {id:newId},
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.addAccount(result);
+      }
+      });
+    }
+    
   }
 
   toggleStatus(account: Account) {
