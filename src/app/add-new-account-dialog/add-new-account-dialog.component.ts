@@ -12,14 +12,14 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
+  selector: 'app-account-form',
   templateUrl: './add-new-account-dialog.component.html',
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 
 
-export class DialogOverviewExampleDialog implements OnInit{
+export class AccountFormComponent implements OnInit{
 
   account : Account;
   username: string = '';
@@ -28,7 +28,7 @@ export class DialogOverviewExampleDialog implements OnInit{
   status: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    public dialogRef: MatDialogRef<AccountFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 

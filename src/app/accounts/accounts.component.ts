@@ -4,7 +4,7 @@ import { Account } from '../account';
 import { AccountsService } from '../alamiya.service.service';
 
 import {MatDialog } from '@angular/material/dialog';
-import { DialogOverviewExampleDialog } from '../add-new-account-dialog/add-new-account-dialog.component';
+import { AccountFormComponent } from '../add-new-account-dialog/add-new-account-dialog.component';
 
 
 
@@ -34,7 +34,7 @@ export class AccountsComponent {
   openDialog(): void {
     if (this.accounts.length !== 0) {
       const newId = this.accounts[this.accounts.length - 1].id + 1;
-      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      const dialogRef = this.dialog.open(AccountFormComponent, {
       data: {id:newId},
       });
 
@@ -48,7 +48,7 @@ export class AccountsComponent {
 
     else {
       const newId = 1;
-      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      const dialogRef = this.dialog.open(AccountFormComponent, {
       data: {id:newId},
       });
 
