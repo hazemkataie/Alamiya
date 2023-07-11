@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Account } from './account';
 
 @Injectable()
 
 export class AccountsService {
   // Private property to store the accounts
   private accounts: any[];
+  liveAccount: number = 0;
 
   constructor() {
     // Load the accounts when the service is instantiated
@@ -32,6 +34,7 @@ export class AccountsService {
     localStorage.setItem('accounts', JSON.stringify(this.accounts));
   }
 
+
   // Get all accounts
   getAccounts(): any[] {
     return this.accounts;
@@ -50,5 +53,30 @@ export class AccountsService {
   // Get the active accounts
   getActiveAccounts(): any[] {
     return this.accounts.filter(account => account.status);
+  }
+
+  addAccount(account:Account) {
+    
+    if (this.accounts.length == 0) {
+      this.accounts.push({ id: account.id, server: 4200, username: account.username, password: account.password, status: false }); // Add a new account to the array
+      this.liveAccount = this.accounts.length; // Update the count of live accounts
+      this.saveChanges(); // Save the changes to the accounts
+    }
+    else {
+      const newId = this.accounts[this.accounts.length - 1].id + 1;
+      this.accounts.push({ id: account.id, server: 4200, username: account.username, password: account.password, status: false }); // Add a new account to the array
+      this.liveAccount = this.accounts.length; // Update the count of live accounts
+      this.saveChanges(); // Save the changes to the accounts
+    }
+  }
+
+  deleteAccount(account: Account): void {
+    const index = this.accounts.findIndex(acc => acc === account);
+    if (index !== -1) {
+      this.accounts.splice(index, 1);
+      this.saveChanges();
+      this.accounts = this.getAccounts(); // accounts dizisini güncelle
+      window.location.reload();   
+    }
   }
 }

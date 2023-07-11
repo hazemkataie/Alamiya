@@ -18,6 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatTableModule,
     MatCardModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   providers: [AccountsService],
   bootstrap: [AppComponent]

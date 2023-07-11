@@ -71,26 +71,11 @@ export class AccountsComponent {
   }
 
   addAccount(account:Account) {
-    
-    if (this.accounts.length == 0) {
-      this.accounts.push({ id: account.id, server: 4200, username: account.username, password: account.password, status: false }); // Add a new account to the array
-      this.liveAccount = this.accounts.length; // Update the count of live accounts
-      this.accountsService.saveChanges(); // Save the changes to the accounts
-    }
-    else {
-      const newId = this.accounts[this.accounts.length - 1].id + 1;
-      this.accounts.push({ id: account.id, server: 4200, username: account.username, password: account.password, status: false }); // Add a new account to the array
-      this.liveAccount = this.accounts.length; // Update the count of live accounts
-      this.accountsService.saveChanges(); // Save the changes to the accounts
-    }
+    this.accountsService.addAccount(account);
   }
 
   deleteAccount(account: Account): void {
-    const index = this.accounts.findIndex(acc => acc === account); // Find the index of the account in the array
-    if (index !== -1) {
-      this.accounts.splice(index, 1); // Remove the account from the array
-      this.accountsService.saveChanges();
-    }
+    this.accountsService.deleteAccount(account);
   }
 
   goBack(): void {
