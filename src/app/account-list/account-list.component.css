@@ -1,7 +1,8 @@
-table {
-  width: 100%;
+button{
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
-button{
-  margin: 8px;
+table {
+  width: 100%;
 }
