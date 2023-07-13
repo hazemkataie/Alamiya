@@ -9,6 +9,10 @@ import { Account } from '../account';
 
 export interface DialogData {
   id: number;
+  username: string;
+  password: number;
+  server: number;
+  status: boolean;
 }
 
 @Component({
@@ -21,12 +25,6 @@ export interface DialogData {
 
 export class AccountFormComponent implements OnInit{
 
-  account : Account;
-  username: string = '';
-  password: number = null;
-  server: number = 4200;
-  status: boolean = false;
-
   constructor(
     public dialogRef: MatDialogRef<AccountFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -34,13 +32,13 @@ export class AccountFormComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.account = {
-      id: this.data.id,
-      username: this.username,
-      password: this.password,
-      server: this.server,
-      status: this.status,
-    };
+    // this.account = {
+    //   id: this.data.id,
+    //   username: this.username,
+    //   password: this.password,
+    //   server: this.server,
+    //   status: this.status,
+    // };
   }
 
   onNoClick(): void { 

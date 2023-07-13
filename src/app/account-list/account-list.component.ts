@@ -26,12 +26,19 @@ export class AccountListComponent implements OnInit{
     this.accounts = this.accountsService.getAccounts();
   }
 
-  openDialog(element: { id: any; }) {
-    const dialogRef = this.dialog.open(AccountFormComponent,{
-      data: {id:element.id},
-      });
-      dialogRef.afterClosed();
+  openDialog(account: Account) {
+    const dialogRef = this.dialog.open(AccountFormComponent, {
+      data: { id: account.id, username: account.username, password: account.password, server: account.server, status: false },
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.accountsService.updateAccount(result);
+      }
+    });
   }
+  
+  
 
   deleteAccount(account: Account){
     this.accountsService.deleteAccount(account);

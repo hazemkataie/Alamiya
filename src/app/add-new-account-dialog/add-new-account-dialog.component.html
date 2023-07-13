@@ -3,21 +3,21 @@
   <p>Please enter the Server</p>
   <mat-form-field>
     <mat-label>Server</mat-label>
-    <input matInput [(ngModel)]="account.server">
+    <input matInput [(ngModel)]="data.server">
   </mat-form-field>
   <p>Please enter your Username</p>
   <mat-form-field>
     <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="account.username">
+    <input matInput [(ngModel)]="data.username">
   </mat-form-field>
   <br> 
   <p>Please enter your Password</p> 
   <mat-form-field>
     <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="account.password">
+    <input matInput [(ngModel)]="data.password">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="account" cdkFocusInitial>Login</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Login</button>
 </div>

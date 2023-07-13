@@ -17,7 +17,7 @@ import { AccountFormComponent } from '../add-new-account-dialog/add-new-account-
 export class AccountsComponent {
   accounts: Account[]; // Array to store accounts
   liveAccount: number = 0; // Variable to store the count of live accounts
-  server: number = 4200;
+  server: number;
 
   constructor(
     private location: Location,
@@ -39,7 +39,6 @@ export class AccountsComponent {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.addAccount(result);
       }

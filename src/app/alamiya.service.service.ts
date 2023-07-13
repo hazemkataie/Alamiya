@@ -79,4 +79,14 @@ export class AccountsService {
       window.location.reload();   
     }
   }
+
+  updateAccount(account: Account) {
+    const index = this.accounts.findIndex(acc => acc.id === account.id);
+    if (index !== -1) {
+      this.accounts[index] = account;
+      this.saveChanges();
+      this.accounts = this.getAccounts();
+      window.location.reload();
+    }
+  }
 }
