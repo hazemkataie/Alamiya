@@ -1,8 +1,22 @@
-button{
+button {
   margin-top: 10px;
   margin-right: 10px;
 }
 
 table {
   width: 100%;
+  table-layout: fixed;
+}
+
+.user-id,
+.user-server,
+.user-userName,
+.user-password,
+.user-status {
+  width: 20%;
+}
+
+.action-cell {
+  width: 10%;
+  text-align: right;
 }
