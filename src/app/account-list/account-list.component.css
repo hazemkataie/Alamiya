@@ -1,3 +1,7 @@
+.table-card{
+  margin: 2% 150px;
+}
+
 button {
   margin-top: 10px;
   margin-right: 10px;
@@ -5,18 +9,21 @@ button {
 
 table {
   width: 100%;
-  table-layout: fixed;
+  /* table-layout: fixed; */
 }
 
 .user-id,
 .user-server,
 .user-userName,
 .user-password,
-.user-status {
-  width: 20%;
+.user-status,
+.user-select {
+  /* width: 10%; */
 }
 
+
+/* 
 .action-cell {
   width: 10%;
-  text-align: right;
-}
+  text-align: left;
+} */

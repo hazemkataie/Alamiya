@@ -31,7 +31,7 @@ export class AccountsService {
 
   // Save the changes to the accounts in local storage
   saveChanges(): void {
-    localStorage.setItem('accounts', JSON.stringify(this.accounts));
+    localStorage.setItem('accounts',  JSON.stringify(this.accounts));
   }
 
 
@@ -70,6 +70,16 @@ export class AccountsService {
     }
   }
 
+  toggleAccountStatus(account: Account) {
+    if (account.username.trim() !== '' && account.password !== null) {
+      // Toggle the status of the account
+      account.status = !account.status;
+      this.saveChanges(); // Save the changes to the accounts
+      this.accounts = this.getAccounts();
+      window.location.reload();
+    }
+  }
+
   deleteAccount(account: Account): void {
     const index = this.accounts.findIndex(acc => acc === account);
     if (index !== -1) {
@@ -79,6 +89,7 @@ export class AccountsService {
       window.location.reload();   
     }
   }
+  
 
   updateAccount(account: Account) {
     const index = this.accounts.findIndex(acc => acc.id === account.id);

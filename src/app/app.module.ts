@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AccountsComponent } from './accounts/accounts.component';
 import { AccountsService } from './alamiya.service.service';
 import { AccountFormComponent } from './add-new-account-dialog/add-new-account-dialog.component';
 import { AccountListComponent } from './account-list/account-list.component';
@@ -18,15 +17,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AccountsComponent,
     AccountListComponent,
   ],
   imports: [
@@ -44,6 +43,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatCardModule,
     MatIconModule,
     MatMenuModule,
+    MatCheckboxModule,
+
   ],
   providers: [AccountsService],
   bootstrap: [AppComponent]

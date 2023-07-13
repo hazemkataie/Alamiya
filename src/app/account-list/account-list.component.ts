@@ -3,7 +3,9 @@ import { AccountsService } from '../alamiya.service.service';
 import { Account } from '../account';
 import { Location } from '@angular/common';
 import { AccountFormComponent } from '../add-new-account-dialog/add-new-account-dialog.component';
-import {MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+
 
 @Component({
   selector: 'app-account-list',
@@ -13,7 +15,7 @@ import {MatDialog } from '@angular/material/dialog';
 
 export class AccountListComponent implements OnInit{
   accounts: Account[];
-  displayedColumns: string[] = ['id', 'server', 'username', 'password', 'status', 'actions'];
+  displayedColumns: string[] = ['select', 'id', 'server', 'username', 'password', 'status', 'actions'];
 
   constructor (
     private accountsService: AccountsService,
@@ -26,9 +28,16 @@ export class AccountListComponent implements OnInit{
     this.accounts = this.accountsService.getAccounts();
   }
 
-  openDialog(account: Account) {
+  selectAllAccounts(event: MatCheckboxChange) {
+    this.accounts.forEach(account => {
+      account.selected = event.checked;
+    });
+  }
+  
+
+  editAccountDialog(account: Account) {
     const dialogRef = this.dialog.open(AccountFormComponent, {
-      data: { id: account.id, username: account.username, password: account.password, server: account.server, status: false },
+      data: { id: account.id, username: account.username, password: account.password, server: account.server, status: false, select: false},
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -37,12 +46,92 @@ export class AccountListComponent implements OnInit{
       }
     });
   }
+
+  addAccountDialog(): void {
+    if (this.accounts.length !== 0) {
+      const newId = this.accounts[this.accounts.length - 1].id + 1;
+      const dialogRef = this.dialog.open(AccountFormComponent, {
+      data: {id:newId},
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.accountsService.addAccount(result);
+        this.accountsService.saveChanges();
+        window.location.reload();
+      }
+      });
+    }
+
+    else {
+      const newId = 1;
+      const dialogRef = this.dialog.open(AccountFormComponent, {
+      data: {id:newId},
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.accountsService.addAccount(result);
+        this.accountsService.saveChanges();
+        window.location.reload();
+      }
+      });
+    }
+    
+  }
+  
+  toggleStatus(account: Account){
+    this.accountsService.toggleAccountStatus(account);
+  }
+
+  hasSelectedAccounts(): boolean {
+    return this.accounts.some(account => account.selected); 
+  }
+
+  selectedAccountsStatusDifference(): boolean {
+    const selectedAccounts = this.accounts.some(account => account.selected);
+    const connectedSelectedAccounts = this.accounts.every(account => account.status && account.selected);
+    const disconnectedSelectedAccounts = this.accounts.every(account => !account.status && account.selected);
+  
+    if ((connectedSelectedAccounts || disconnectedSelectedAccounts) && selectedAccounts) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   
   
 
   deleteAccount(account: Account){
     this.accountsService.deleteAccount(account);
   }
+
+  deleteSelectedAccounts(): void {
+    const selectedAccounts = this.accounts.filter(account => account.selected);
+    selectedAccounts.forEach(account => {
+      const index = this.accounts.findIndex(acc => acc === account);
+      if (index !== -1) {
+        this.accounts.splice(index, 1);
+      }
+    });
+  
+    this.accountsService.saveChanges();
+    this.accounts = this.accountsService.getAccounts();
+    window.location.reload();
+  }
+
+  toggleSelectedAccountsStatus(): void {
+    const selectedAccounts = this.accounts.filter(account => account.selected);
+    selectedAccounts.forEach(account => {
+      account.status = !account.status;
+    });
+  
+    this.accountsService.saveChanges();
+    this.accounts = this.accountsService.getAccounts();
+    window.location.reload();
+  }
+  
   
   goBack(){
     this.location.back();

@@ -4,4 +4,5 @@ export interface Account {
     username: string;
     password: number;
     status: boolean;
+    selected: boolean;
   }
