@@ -61,7 +61,7 @@
     <!-- <button mat-raised-button type="button" id="accounts" routerLink="/editAccount">Edit Accounts</button> -->
     <button mat-stroked-button type="button" color="primary" (click)="addAccountDialog()">Add New Account</button>
     <button mat-flat-button type="button" color="warn" (click)="deleteSelectedAccounts()" *ngIf="hasSelectedAccounts()">Delete Selected Accounts</button>
-    <button mat-flat-button type="button" color="primary" (click)="toggleSelectedAccountsStatus()" *ngIf="selectedAccountsStatusDifference()">Toggle Connection</button>
+    <button mat-flat-button type="button" color="primary" (click)="toggleSelectedAccountsStatus()" *ngIf="selectedAccountsStatusDifference()">{{selectedAccountsStatus() ? 'Disconnect' : 'Connect' }}</button>
 
   </mat-card-content>
 </mat-card>

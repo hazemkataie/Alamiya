@@ -89,11 +89,18 @@ export class AccountListComponent implements OnInit{
     return this.accounts.some(account => account.selected); 
   }
 
+  selectedAccountsStatus(): boolean {
+    const selectedAccounts = this.accounts.filter(account => account.selected);
+    const selectedAccountsStatus = selectedAccounts[0].status;
+  
+    return selectedAccountsStatus
+  }
+  
   selectedAccountsStatusDifference(): boolean {
     const connectedSelectedAccounts = this.accounts.some(account => account.status && account.selected);
     const disconnectedSelectedAccounts = this.accounts.some(account => !account.status && account.selected);
   
-    return(connectedSelectedAccounts !== disconnectedSelectedAccounts)
+    return (connectedSelectedAccounts !== disconnectedSelectedAccounts)
   }
   
   deleteAccount(account: Account){
