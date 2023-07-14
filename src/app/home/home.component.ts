@@ -48,8 +48,6 @@ export class HomeComponent {
   }
   
   onSelectAccount(value: string): void {
-    console.log('account changed');
-    
     // Set the selected account
     this.selectedAccount = value;
 

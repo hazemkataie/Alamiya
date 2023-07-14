@@ -15,7 +15,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export class AccountListComponent implements OnInit{
   accounts: Account[];
-  displayedColumns: string[] = ['select', 'id', 'server', 'username', 'password', 'status', 'actions'];
+  displayedColumns: string[] = ['select', 'id', 'server', 'username', 'status', 'actions'];
 
   constructor (
     private accountsService: AccountsService,

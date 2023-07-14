@@ -72,17 +72,17 @@ p{
 
 #accounts{
     position: absolute;
-    top: 3px;
+    top: 0px;
     right: 3px;
-    height: 50px;
+    height: 60px;
     width: 50px;
     font-size: 10px;
-    border-radius: 20%;
+    border-radius: 50%;
 }
 
 #live{
     position: absolute;
-    top: 55px;
+    top: 57px;
     right: -2px;
     font-size: 15px;
     max-width: 95px;
