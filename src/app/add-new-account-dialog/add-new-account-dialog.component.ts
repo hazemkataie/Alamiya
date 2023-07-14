@@ -1,11 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import {NgIf} from '@angular/common';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { Account } from '../account';
 
 export interface DialogData {
   id: number;
@@ -31,14 +29,6 @@ export class AccountFormComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-
-    // this.account = {
-    //   id: this.data.id,
-    //   username: this.username,
-    //   password: this.password,
-    //   server: this.server,
-    //   status: this.status,
-    // };
   }
 
   onNoClick(): void { 

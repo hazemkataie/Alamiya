@@ -12,14 +12,14 @@ table {
   /* table-layout: fixed; */
 }
 
-.user-id,
+/* .user-id,
 .user-server,
 .user-userName,
 .user-password,
 .user-status,
 .user-select {
-  /* width: 10%; */
-}
+ width: 10%;
+} /*
 
 
 /* 

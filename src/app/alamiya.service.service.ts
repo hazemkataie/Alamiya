@@ -5,7 +5,7 @@ import { Account } from './account';
 
 export class AccountsService {
   // Private property to store the accounts
-  private accounts: any[];
+  private accounts: Account[];
   liveAccount: number = 0;
 
   constructor() {
@@ -22,7 +22,7 @@ export class AccountsService {
     } else {
       // If no saved accounts, initialize with default values
       this.accounts = [
-        { id: 1, server: null, username: '', password: null, status: false }
+        { id: 1, server: null, username: '', password: null, status: false, selected: false }
       ];
       // Save the changes
       this.saveChanges();
@@ -36,7 +36,7 @@ export class AccountsService {
 
 
   // Get all accounts
-  getAccounts(): any[] {
+  getAccounts(): Account[] {
     return this.accounts;
   }
 
@@ -51,26 +51,19 @@ export class AccountsService {
   } 
   
   // Get the active accounts
-  getActiveAccounts(): any[] {
+  getActiveAccounts(): Account[] {
     return this.accounts.filter(account => account.status);
   }
 
-  addAccount(account:Account) {
-    
-    if (this.accounts.length == 0) {
-      this.accounts.push({ id: account.id, server: 4200, username: account.username, password: account.password, status: false }); // Add a new account to the array
-      this.liveAccount = this.accounts.length; // Update the count of live accounts
-      this.saveChanges(); // Save the changes to the accounts
-    }
-    else {
-      const newId = this.accounts[this.accounts.length - 1].id + 1;
-      this.accounts.push({ id: account.id, server: 4200, username: account.username, password: account.password, status: false }); // Add a new account to the array
-      this.liveAccount = this.accounts.length; // Update the count of live accounts
-      this.saveChanges(); // Save the changes to the accounts
-    }
+  addAccount(account: Account): void {
+    const newId = this.accounts.length > 0 ? this.accounts[this.accounts.length - 1].id + 1 : 1;
+    const newAccount: Account = { ...account, id: newId, server: 4200, status: false, selected: false };
+    this.accounts.push(newAccount);
+    this.liveAccount = this.accounts.length;
+    this.saveChanges();
   }
 
-  toggleAccountStatus(account: Account) {
+  toggleAccountStatus(account: Account): void {
     if (account.username.trim() !== '' && account.password !== null) {
       // Toggle the status of the account
       account.status = !account.status;
@@ -91,7 +84,7 @@ export class AccountsService {
   }
   
 
-  updateAccount(account: Account) {
+  updateAccount(account: Account): void {
     const index = this.accounts.findIndex(acc => acc.id === account.id);
     if (index !== -1) {
       this.accounts[index] = account;

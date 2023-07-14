@@ -93,17 +93,9 @@ export class AccountListComponent implements OnInit{
     const connectedSelectedAccounts = this.accounts.some(account => account.status && account.selected);
     const disconnectedSelectedAccounts = this.accounts.some(account => !account.status && account.selected);
   
-    if (connectedSelectedAccounts !== disconnectedSelectedAccounts){
-      return true;
-    } 
-    else {
-      return false;
-    }
-
+    return(connectedSelectedAccounts !== disconnectedSelectedAccounts)
   }
   
-  
-
   deleteAccount(account: Account){
     this.accountsService.deleteAccount(account);
   }
