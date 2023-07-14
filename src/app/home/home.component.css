@@ -1,12 +1,27 @@
 
-#home-card{
+/* #home-card{
+    margin: 5% 450px;
+} */
+
+/* #transactions-card{
     margin: 5% 350px;
+} */
+.container {
+    display: flex;
+    justify-content:center;
 }
 
-#transactions-card{
-    margin: 5% 350px;
+#home-card {
+    flex: 1;
+    margin: 50px 15px 50px 150px;
+    max-height: 450px;
 }
-
+  
+#account-card {
+    flex: 1;
+    margin: 50px 150px 50px 15px;
+}
+  
 #unit{
     position: relative;
     background-color: white;

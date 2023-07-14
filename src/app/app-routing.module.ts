@@ -6,7 +6,6 @@ import { AccountListComponent } from './account-list/account-list.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'accounts', component: AccountListComponent },
 ];
 
 @NgModule({

@@ -1,3 +1,5 @@
+<div class="container">
+    
 <mat-card id="home-card">
     <mat-card-content>
         <div id="unit">
@@ -26,18 +28,19 @@
             <button type="button" mat-raised-button id="sell" (click)="sat()">Sell</button>
             <button type="button" mat-raised-button id="buy" (click)="satinAl()">Buy</button>
         </div>
-    </mat-card-content>
-</mat-card>
-<mat-card id="transactions-card" *ngIf="message">
-    <mat-card-content>
-        <div id="transactions">
+        <div id="transactions"  *ngIf="message">
             <header>
                 <h2>Transactions</h2>
             </header>
             <hr>
             <p style="padding: 10px;" [style.background]="messageColor">
-                    {{ selectedAccountUsername || 'some text' }} made {{ gram }} {{ message }}
+                {{ selectedAccountUsername || 'some text' }} made {{ gram }} {{ message }}
             </p>     
         </div>
     </mat-card-content>
 </mat-card>
+
+
+<app-account-list id="account-card"></app-account-list>
+
+</div>
