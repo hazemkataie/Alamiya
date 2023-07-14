@@ -1,23 +1,29 @@
 
+#home-card{
+    margin: 5% 350px;
+}
+
+#transactions-card{
+    margin: 5% 350px;
+}
+
 #unit{
     position: relative;
     background-color: white;
     text-align: center;
-    margin: 200px auto 30px auto;
-    border-radius: 5px;
-    border: black solid 1px;
+    margin: 0 auto;
+    /* border-radius: 5px;
+    border: black solid 1px; */
     padding: 10px;
-    max-width: 500px;
 }
 
 #transactions{
     background-color: white;
     text-align: center;
-    margin: 30px auto;
-    border-radius: 5px;
-    border: black solid 1px;
+    margin: 10px auto;
+    /* border-radius: 5px;
+    border: black solid 1px; */
     padding: 10px;
-    max-width: 500px;
 }
 
 h1{
@@ -68,11 +74,10 @@ p{
     position: absolute;
     top: 3px;
     right: 3px;
-    height: 57px;
-    width: 57px;
+    height: 50px;
+    width: 50px;
     font-size: 10px;
-    border-radius: 100%;
-    border: solid black 1px;
+    border-radius: 20%;
 }
 
 #live{
