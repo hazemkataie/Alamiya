@@ -90,15 +90,16 @@ export class AccountListComponent implements OnInit{
   }
 
   selectedAccountsStatusDifference(): boolean {
-    const selectedAccounts = this.accounts.some(account => account.selected);
-    const connectedSelectedAccounts = this.accounts.every(account => account.status && account.selected);
-    const disconnectedSelectedAccounts = this.accounts.every(account => !account.status && account.selected);
+    const connectedSelectedAccounts = this.accounts.some(account => account.status && account.selected);
+    const disconnectedSelectedAccounts = this.accounts.some(account => !account.status && account.selected);
   
-    if ((connectedSelectedAccounts || disconnectedSelectedAccounts) && selectedAccounts) {
+    if (connectedSelectedAccounts !== disconnectedSelectedAccounts){
       return true;
-    } else {
+    } 
+    else {
       return false;
     }
+
   }
   
   
