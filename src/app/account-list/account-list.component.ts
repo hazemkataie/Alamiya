@@ -1,39 +1,47 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AccountsService } from '../alamiya.service.service';
 import { Account } from '../account';
 import { Location } from '@angular/common';
 import { AccountFormComponent } from '../add-new-account-dialog/add-new-account-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-account-list',
   styleUrls: ['account-list.component.css'],
   templateUrl: 'account-list.component.html',
 })
-
-export class AccountListComponent implements OnInit{
-  accounts: Account[];
+export class AccountListComponent implements OnInit {
+  accounts: Account[] = [];
   displayedColumns: string[] = ['select', 'id', 'server', 'username', 'status', 'actions'];
 
-  constructor (
+  constructor(
     private accountsService: AccountsService,
     private location: Location,
     public dialog: MatDialog
-   
-  ){}
-  
+  ) {}
+
   ngOnInit(): void {
-    this.accounts = this.accountsService.getAccounts();
+    this.loadAccounts();
+  }
+
+  loadAccounts(): void {
+    this.accountsService.getAccountsFromApi().subscribe(
+      (accounts) => {
+        this.accounts = accounts;
+      },
+      (error) => {
+        console.error('Hesaplar yüklenirken bir hata oluştu:', error);
+      }
+    );
   }
 
   selectAllAccounts(event: MatCheckboxChange) {
-    this.accounts.forEach(account => {
+    this.accounts.forEach((account) => {
       account.selected = event.checked;
     });
   }
-  
 
   editAccountDialog(account: Account) {
     const dialogRef = this.dialog.open(AccountFormComponent, {
@@ -51,90 +59,99 @@ export class AccountListComponent implements OnInit{
     if (this.accounts.length !== 0) {
       const newId = this.accounts[this.accounts.length - 1].id + 1;
       const dialogRef = this.dialog.open(AccountFormComponent, {
-      data: {id:newId},
+        data: { id: newId },
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.accountsService.addAccount(result);
-        this.accountsService.saveChanges();
-        window.location.reload();
-      }
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.accountsService.addAccount(result).subscribe(() => {
+            this.loadAccounts();
+          });
+        }
       });
-    }
-
+    } 
     else {
       const newId = 1;
       const dialogRef = this.dialog.open(AccountFormComponent, {
-      data: {id:newId},
+        data: { id: newId },
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result) {
-        this.accountsService.addAccount(result);
-        this.accountsService.saveChanges();
-        window.location.reload();
-      }
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.accountsService.addAccount(result).subscribe(() => {
+            this.loadAccounts();
+          });
+        }
       });
     }
-    
   }
-  
-  toggleStatus(account: Account){
-    this.accountsService.toggleAccountStatus(account);
+
+  toggleStatus(account: Account) {
+    this.accountsService.toggleAccountStatus(account).subscribe(() => {
+      this.loadAccounts();
+    });
   }
 
   hasSelectedAccounts(): boolean {
-    return this.accounts.some(account => account.selected); 
+    return this.accounts && this.accounts.some((account) => account.selected);
   }
 
   selectedAccountsStatus(): boolean {
-    const selectedAccounts = this.accounts.filter(account => account.selected);
-    const selectedAccountsStatus = selectedAccounts[0].status;
-  
-    return selectedAccountsStatus
+    const selectedAccounts = this.accounts.filter((account) => account.selected);
+    const selectedAccountsStatus = selectedAccounts[0]?.status || false;
+
+    return selectedAccountsStatus;
   }
-  
+
   selectedAccountsStatusDifference(): boolean {
-    const connectedSelectedAccounts = this.accounts.some(account => account.status && account.selected);
-    const disconnectedSelectedAccounts = this.accounts.some(account => !account.status && account.selected);
-  
-    return (connectedSelectedAccounts !== disconnectedSelectedAccounts)
+    const connectedSelectedAccounts = this.accounts.some(
+      (account) => account.status && account.selected
+    );
+    const disconnectedSelectedAccounts = this.accounts.some(
+      (account) => !account.status && account.selected
+    );
+
+    return connectedSelectedAccounts !== disconnectedSelectedAccounts;
   }
-  
-  deleteAccount(account: Account){
-    this.accountsService.deleteAccount(account);
+
+  deleteAccount(account: Account) {
+    this.accountsService.deleteAccount(account).subscribe(() => {
+      this.loadAccounts();
+    });
   }
 
   deleteSelectedAccounts(): void {
-    const selectedAccounts = this.accounts.filter(account => account.selected);
-    selectedAccounts.forEach(account => {
-      const index = this.accounts.findIndex(acc => acc === account);
-      if (index !== -1) {
-        this.accounts.splice(index, 1);
+    const selectedAccounts = this.accounts.filter((account) => account.selected);
+    const deletionObservables = selectedAccounts.map((account) => this.accountsService.deleteAccount(account));
+
+    // Merge all the deletion observables into a single observable
+    forkJoin(deletionObservables).subscribe(
+      () => {
+        // Filter out the deleted accounts from the current accounts list
+        this.accounts = this.accounts.filter((account) => !account.selected);
+        // Save the changes to the backend
+        this.accountsService.saveChanges().subscribe(() => {
+          console.log('Seçili hesaplar başarıyla silindi ve değişiklikler backend\'e kaydedildi.');
+        });
+      },
+      (error) => {
+        console.error('Hesaplar silinirken bir hata oluştu:', error);
       }
-    });
-  
-    this.accountsService.saveChanges();
-    this.accounts = this.accountsService.getAccounts();
-    window.location.reload();
+    );
   }
 
   toggleSelectedAccountsStatus(): void {
-    const selectedAccounts = this.accounts.filter(account => account.selected);
-    selectedAccounts.forEach(account => {
+    const selectedAccounts = this.accounts.filter((account) => account.selected);
+    selectedAccounts.forEach((account) => {
       account.status = !account.status;
     });
-  
-    this.accountsService.saveChanges();
-    this.accounts = this.accountsService.getAccounts();
-    window.location.reload();
+
+    this.accountsService.saveChanges().subscribe(() => {
+      this.loadAccounts();
+    });
   }
-  
-  
-  goBack(){
+
+  goBack() {
     this.location.back();
   }
 }
-
