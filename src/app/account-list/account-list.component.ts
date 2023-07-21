@@ -50,7 +50,7 @@ export class AccountListComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.accountsService.updateAccount(result);
+        this.accountsService.updateAccount(result).subscribe(() => this.loadAccounts());
       }
     });
   }
@@ -62,11 +62,9 @@ export class AccountListComponent implements OnInit {
         data: { id: newId },
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.accountsService.addAccount(result).subscribe(() => {
-            this.loadAccounts();
-          });
+          this.accountsService.addAccount(result).subscribe(() => this.loadAccounts());
         }
       });
     } 
@@ -76,11 +74,9 @@ export class AccountListComponent implements OnInit {
         data: { id: newId },
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.accountsService.addAccount(result).subscribe(() => {
-            this.loadAccounts();
-          });
+          this.accountsService.addAccount(result).subscribe(() => this.loadAccounts());
         }
       });
     }
@@ -135,7 +131,7 @@ export class AccountListComponent implements OnInit {
         });
       },
       (error) => {
-        console.error('Hesaplar silinirken bir hata oluştu:', error);
+        console.error('Hesaplar silinirken bir hata oluştu(forkjoin):', error);
       }
     );
   }
@@ -143,15 +139,28 @@ export class AccountListComponent implements OnInit {
   toggleSelectedAccountsStatus(): void {
     const selectedAccounts = this.accounts.filter((account) => account.selected);
     selectedAccounts.forEach((account) => {
-      account.status = !account.status;
+      this.accountsService.toggleAccountStatus(account).subscribe(() => {
+        this.loadAccounts();
+      });
     });
-
-    this.accountsService.saveChanges().subscribe(() => {
-      this.loadAccounts();
-    });
+  
+    // Seçilen hesapların durumunu güncelledik, şimdi bu değişiklikleri backend'e kaydedelim.
+    this.accountsService.saveChanges().subscribe(
+      () => {
+        // Save işlemi tamamlandıktan sonra yapılacak işlemler
+        this.loadAccounts();
+      },
+      (error) => {
+        console.error('Hesaplar kaydedilirken bir hata oluştu:', error);
+      }
+    );
   }
-
+  
   goBack() {
     this.location.back();
   }
 }
+function account(value: Account, index: number, array: Account[]): void {
+  throw new Error('Function not implemented.');
+}
+

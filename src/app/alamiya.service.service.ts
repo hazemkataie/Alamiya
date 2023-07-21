@@ -1,30 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Account } from './account';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable()
 export class AccountsService {
-  private accounts: Account[] = []
+  private accounts: Account[] = [];
   private accountsUrl = 'http://localhost:3000/api/accounts'; // Backend API'nin adresini buraya yazın
   liveAccount: number = 0;
 
   constructor(private http: HttpClient) {
     // Load the accounts when the service is instantiated
-
     this.loadAccounts();
   }
 
   // Load accounts from the API
   private loadAccounts(): void {
     this.getAccountsFromApi().subscribe(
-      {next:(accounts) => {
+      (accounts) => {
         this.accounts = accounts;
       },
-     error: (error) => {
+      (error) => {
         console.error('Hesaplar yüklenirken bir hata oluştu:', error);
-      }}
+      }
     );
   }
 
@@ -76,7 +75,7 @@ export class AccountsService {
       tap((addedAccount) => {
         this.accounts.push(addedAccount);
         this.liveAccount = this.accounts.length;
-        this.saveChangesToApi(this.accounts).subscribe();
+        this.saveChangesToApi(this.accounts).subscribe(() => this.loadAccounts());
       }),
       catchError((error) => {
         console.error('Hesap eklenirken bir hata oluştu:', error);
@@ -100,11 +99,8 @@ export class AccountsService {
         })
       );
     }
-    return of(null);
+    return throwError('Geçersiz kullanıcı adı veya şifre');
   }
-  
-  
-  
 
   deleteAccount(account: Account): Observable<any> {
     const deleteUrl = `${this.accountsUrl}/${account.id}`; // Backend API'deki hesap silme endpoint'inin tam URL'si
@@ -122,22 +118,26 @@ export class AccountsService {
       })
     );
   }
-  
-
-  
 
   updateAccount(account: Account): Observable<any> {
     const index = this.accounts.findIndex((acc) => acc.id === account.id);
     if (index !== -1) {
+      // Yerel hesap listesinde güncellenen hesabı güncelleyin
       this.accounts[index] = account;
-      return this.saveChangesToApi(this.accounts); // account'u değişikliklerle birlikte gönderin
+      // Güncellenen hesabı backend API'ye gönderin
+      return this.http.put(`${this.accountsUrl}/${account.id}`, account).pipe(
+        catchError((error) => {
+          console.error('Hesap güncellenirken bir hata oluştu:', error);
+          return throwError('Hesap güncellenirken bir hata oluştu.');
+        })
+      );
+    } else {
+      return throwError('Böyle bir hesap bulunamadı.');
     }
-    return of(null); // Hesap bulunamadıysa null döndür
   }
-  
+   
 
   saveChanges(): Observable<any> {
     return this.saveChangesToApi(this.accounts);
-}
-
+  }
 }
