@@ -62,6 +62,8 @@
     <button mat-stroked-button type="button" color="primary" (click)="addAccountDialog()">Add New Account</button>
     <button mat-flat-button type="button" color="warn" (click)="deleteSelectedAccounts()" *ngIf="hasSelectedAccounts()">Delete Selected Accounts</button>
     <button mat-flat-button type="button" color="primary" (click)="toggleSelectedAccountsStatus()" *ngIf="selectedAccountsStatusDifference()">{{selectedAccountsStatus() ? 'Disconnect' : 'Connect' }}</button>
-
+    <div *ngIf="loadingService.isLoadingActive()" class="loading-overlay">
+      <div class="loading-spinner"></div>
+  </div>
   </mat-card-content>
 </mat-card>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AccountsService } from '../alamiya.service.service';
 import { Account } from '../account';
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { Account } from '../account';
 
 export class HomeComponent {
 
-  constructor(private accountsService: AccountsService) {}
+  constructor(private accountsService: AccountsService, public loadingService: LoadingService) {}
 
   gram: number = null;
   altinGramAlisFiyati: number = 1.609;
@@ -33,6 +34,13 @@ export class HomeComponent {
   selectedAccountUsername: string;
 
   ngOnInit(): void {
+    this.loadingService.showLoading();
+
+    // Simüle edilen bir asenkron işlem (örneğin, API çağrısı veya başka bir işlem)
+    setTimeout(() => {
+      // Asenkron işlem tamamlandıktan sonra yükleme ekranını gizle
+      this.loadingService.hideLoading();
+    }, 7000);
     
     // Get the count of active accounts
     this.liveAccountsCount = this.accountsService.getActiveAccountsCount();

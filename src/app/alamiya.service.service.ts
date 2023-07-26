@@ -3,6 +3,7 @@ import { Account } from './account';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { LoadingService } from './loading.service';
 
 @Injectable()
 export class AccountsService {
@@ -10,27 +11,34 @@ export class AccountsService {
   private accountsUrl = 'http://localhost:3000/api/accounts'; // Backend API'nin adresini buraya yazın
   liveAccount: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loadingService: LoadingService) {
     // Load the accounts when the service is instantiated
     this.loadAccounts();
   }
 
   // Load accounts from the API
   private loadAccounts(): void {
+    this.loadingService.showLoading();
+
     this.getAccountsFromApi().subscribe(
       (accounts) => {
         this.accounts = accounts;
+        this.loadingService.hideLoading();
       },
       (error) => {
         console.error('Hesaplar yüklenirken bir hata oluştu:', error);
+        this.loadingService.hideLoading();
       }
     );
   }
 
   // Get all accounts from the API
   getAccountsFromApi(): Observable<Account[]> {
+
+    // this.loadingService.showLoading();
     return this.http.get<Account[]>(this.accountsUrl).pipe(
       catchError((error) => {
+        // this.loadingService.hideLoading();
         console.error('Hesaplar alınırken bir hata oluştu:', error);
         return throwError('Hesaplar alınırken bir hata oluştu.'); // Hata durumunda observable hatası fırlat
       })
@@ -39,6 +47,8 @@ export class AccountsService {
 
   // Save the changes to the accounts in the API
   private saveChangesToApi(accounts: Account[]): Observable<any> {
+    // this.loadingService.showLoading();
+
     return this.http.put(this.accountsUrl, accounts).pipe(
       catchError((error) => {
         console.error('Hesaplar güncellenirken bir hata oluştu:', error);
@@ -49,6 +59,7 @@ export class AccountsService {
 
   // Get all accounts
   getAccounts(): Account[] {
+    this.loadingService.showLoading();
     return this.accounts;
   }
 

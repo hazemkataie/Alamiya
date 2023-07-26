@@ -6,6 +6,7 @@ import { AccountFormComponent } from '../add-new-account-dialog/add-new-account-
 import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { forkJoin } from 'rxjs';
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-account-list',
@@ -19,7 +20,8 @@ export class AccountListComponent implements OnInit {
   constructor(
     private accountsService: AccountsService,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
@@ -27,11 +29,14 @@ export class AccountListComponent implements OnInit {
   }
 
   loadAccounts(): void {
+    this.loadingService.showLoading();
     this.accountsService.getAccountsFromApi().subscribe(
       (accounts) => {
+        this.loadingService.hideLoading();
         this.accounts = accounts;
       },
       (error) => {
+        this.loadingService.hideLoading();
         console.error('Hesaplar yüklenirken bir hata oluştu:', error);
       }
     );

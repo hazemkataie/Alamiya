@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountsService } from './alamiya.service.service';
+import { LoadingService } from './loading.service';
 import { AccountFormComponent } from './add-new-account-dialog/add-new-account-dialog.component';
 import { AccountListComponent } from './account-list/account-list.component';
 
@@ -48,7 +49,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HttpClientModule,
 
   ],
-  providers: [AccountsService],
+  providers: [AccountsService, LoadingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

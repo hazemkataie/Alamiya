@@ -44,3 +44,9 @@
 <app-account-list id="account-card"></app-account-list>
 
 </div>
+
+
+<div *ngIf="loadingService.isLoadingActive()" class="loading-overlay">
+    <div class="loading-spinner"></div>
+</div>
+  
