@@ -9,6 +9,7 @@ import {NgIf} from '@angular/common';
 
 export interface DialogData {
   id: number;
+  login: number;
   username: string;
   password: number;
   server: number;

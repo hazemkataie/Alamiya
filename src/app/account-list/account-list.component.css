@@ -12,6 +12,11 @@ table {
   /* table-layout: fixed; */
 }
 
+th{
+  text-align: center;
+}
+
+
 /* .user-id,
 .user-server,
 .user-userName,

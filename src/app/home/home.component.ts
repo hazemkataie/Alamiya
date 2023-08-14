@@ -26,9 +26,10 @@ export class HomeComponent {
   dolarButton: string = '';
   euroButton: string = '';
   liveAccounts: Account[];
-  liveAccountsCount: number= null;
+  liveAccountsCount: number= 0;
   liveAccountsId: number[];
   accounts = []= [];
+
 
   selectedAccount: string;
   selectedAccountUsername: string;
@@ -43,13 +44,33 @@ export class HomeComponent {
     }, 7000);
     
     // Get the count of active accounts
-    this.liveAccountsCount = this.accountsService.getActiveAccountsCount();
+    this.accountsService.getActiveAccountsCount().subscribe(
+      (activeAccountsCount) => {
+        this.liveAccountsCount = activeAccountsCount;
+        console.log('Aktif Hesap Sayısı:', this.liveAccountsCount);
+      },
+      (error) => {
+        console.error('Aktif hesap sayısı alınırken bir hata oluştu:', error);
+      }
+    );
   
     // Get the IDs of active accounts
-    this.liveAccountsId = this.accountsService.getActiveAccountsId();
+    this.accountsService.getActiveAccountsId().subscribe(
+      (accountIdsArray) => {
+        this.liveAccountsId = accountIdsArray;
+      }
+    );
   
     // Get the active accounts
-    this.liveAccounts = this.accountsService.getActiveAccounts();
+    this.accountsService.getActiveAccounts().subscribe(
+      (activeAccounts) => {
+        this.liveAccounts = activeAccounts;
+        console.log('Aktif Hesaplar:', this.liveAccounts);
+      },
+      (error) => {
+        console.error('Aktif hesaplar alınırken bir hata oluştu:', error);
+      }
+    );
   
     // Save changes to the accounts
     this.accountsService.saveChanges();

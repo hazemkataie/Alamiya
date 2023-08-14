@@ -1,3 +1,5 @@
+//account-list.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { AccountsService } from '../alamiya.service.service';
 import { Account } from '../account';
@@ -15,7 +17,7 @@ import { LoadingService } from '../loading.service';
 })
 export class AccountListComponent implements OnInit {
   accounts: Account[] = [];
-  displayedColumns: string[] = ['select', 'id', 'server', 'username', 'status', 'actions'];
+  displayedColumns: string[] = ['select', 'id', 'server', 'login','username', 'status', 'actions'];
 
   constructor(
     private accountsService: AccountsService,
@@ -50,12 +52,16 @@ export class AccountListComponent implements OnInit {
 
   editAccountDialog(account: Account) {
     const dialogRef = this.dialog.open(AccountFormComponent, {
-      data: { id: account.id, username: account.username, password: account.password, server: account.server, status: false, select: false},
+      data: { id: account.id, login: account.login, account, username: account.username, password: account.password, server: account.server, status: false, select: false},
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.accountsService.updateAccount(result).subscribe(() => this.loadAccounts());
+        this.accountsService.updateAccount(result).subscribe(
+          () => this.loadAccounts(),
+          (error) => {
+            alert('Update request failed.');
+          });
       }
     });
   }
@@ -88,9 +94,40 @@ export class AccountListComponent implements OnInit {
   }
 
   toggleStatus(account: Account) {
-    this.accountsService.toggleAccountStatus(account).subscribe(() => {
-      this.loadAccounts();
+    this.accountsService.toggleAccountStatus(account).subscribe(
+      () => {
+        this.loadAccounts();
+      },
+      (error) => {
+        alert('Connection failed.');
+      }
+    );
+  }
+
+  toggleSelectedAccountsStatus(): void {
+    const selectedAccounts = this.accounts.filter((account) => account.selected);
+    selectedAccounts.forEach((account) => {
+      this.accountsService.toggleAccountStatus(account).subscribe(
+        () => {
+          // Seçilen hesapların durumunu güncelledik, şimdi bu değişiklikleri backend'e kaydedelim.
+          this.accountsService.saveChanges().subscribe(
+            async () => {
+              // Save işlemi tamamlandıktan sonra yapılacak işlemler
+              await this.loadAccounts();
+            },
+            (error) => {
+              console.error('Hesaplar kaydedilirken bir hata oluştu:', error);
+              alert('Backend Connection Failed.');
+            }
+          );
+        },
+        (error) => {
+          alert("Connection failed.");
+        } 
+      );
     });
+  
+    
   }
 
   hasSelectedAccounts(): boolean {
@@ -140,32 +177,9 @@ export class AccountListComponent implements OnInit {
       }
     );
   }
-
-  toggleSelectedAccountsStatus(): void {
-    const selectedAccounts = this.accounts.filter((account) => account.selected);
-    selectedAccounts.forEach((account) => {
-      this.accountsService.toggleAccountStatus(account).subscribe(() => {
-        this.loadAccounts();
-      });
-    });
-  
-    // Seçilen hesapların durumunu güncelledik, şimdi bu değişiklikleri backend'e kaydedelim.
-    this.accountsService.saveChanges().subscribe(
-      () => {
-        // Save işlemi tamamlandıktan sonra yapılacak işlemler
-        this.loadAccounts();
-      },
-      (error) => {
-        console.error('Hesaplar kaydedilirken bir hata oluştu:', error);
-      }
-    );
-  }
   
   goBack() {
     this.location.back();
   }
-}
-function account(value: Account, index: number, array: Account[]): void {
-  throw new Error('Function not implemented.');
-}
 
+}

@@ -1,3 +1,5 @@
+<!-- account-list.component.html -->
+
 <mat-card class="table-card">
   <mat-card-content>
     <table mat-table [dataSource]="accounts" class="accounts-table">
@@ -18,6 +20,12 @@
       <ng-container matColumnDef="server" class="user-server">
         <th mat-header-cell *matHeaderCellDef> SERVER </th>
         <td mat-cell *matCellDef="let account"> {{account.server}} </td>
+      </ng-container>
+      
+      <!-- Login Column -->
+      <ng-container matColumnDef="login" class="user-login">
+        <th mat-header-cell *matHeaderCellDef> LOGIN </th>
+        <td mat-cell *matCellDef="let account"> {{account.login}} </td>
       </ng-container>
     
       <!-- Username Column -->
@@ -62,6 +70,7 @@
     <button mat-stroked-button type="button" color="primary" (click)="addAccountDialog()">Add New Account</button>
     <button mat-flat-button type="button" color="warn" (click)="deleteSelectedAccounts()" *ngIf="hasSelectedAccounts()">Delete Selected Accounts</button>
     <button mat-flat-button type="button" color="primary" (click)="toggleSelectedAccountsStatus()" *ngIf="selectedAccountsStatusDifference()">{{selectedAccountsStatus() ? 'Disconnect' : 'Connect' }}</button>
+    
     <div *ngIf="loadingService.isLoadingActive()" class="loading-overlay">
       <div class="loading-spinner"></div>
   </div>

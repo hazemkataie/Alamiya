@@ -3,9 +3,9 @@
 <mat-card id="home-card">
     <mat-card-content>
         <div id="unit">
-            <h1>ALAMIYA</h1> <hr>
-            <button type="button" mat-raised-button id="accounts" routerLink="/accounts">Accounts</button>
-            <p *ngIf="liveAccountsCount !== 0" id="live">{{liveAccountsCount}} Accounts Connected</p>
+            <h1>EXCHANGE</h1> <hr>
+            <button type="button" mat-raised-button id="accounts" routerLink="/home">Accounts</button>
+            <p *ngIf="liveAccountsCount != 0" id="live">{{liveAccountsCount}} Accounts Connected</p>
             <select #accounts (change)="onSelectAccount(accounts.value)" *ngIf="liveAccountsCount != 0" name="" id="selectAccount">
                 <option disabled selected>Select Account</option>
                 <option *ngFor="let liveaccount of liveAccountsId" [value]="liveaccount" [id]="'selectedAccount' + liveaccount">
@@ -47,6 +47,6 @@
 
 
 <div *ngIf="loadingService.isLoadingActive()" class="loading-overlay">
-    <div class="loading-spinner"></div>
+    
 </div>
   
