@@ -1,4 +1,4 @@
-//alamiya.service.service.ts
+//exchange.service.ts
 
 import { Injectable } from '@angular/core';
 import { Account } from './account';

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Alamiye": {
+    "alamiye": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Alamiye:build:production"
+              "browserTarget": "alamiye:build:production"
             },
             "development": {
-              "browserTarget": "Alamiye:build:development"
+              "browserTarget": "alamiye:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Alamiye:build"
+            "browserTarget": "alamiye:build"
           }
         },
         "test": {

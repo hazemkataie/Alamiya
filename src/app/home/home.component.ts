@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AccountsService } from '../alamiya.service.service';
+import { AccountsService } from '../exchange.service';
 import { Account } from '../account';
 import { LoadingService } from '../loading.service';
 

@@ -1,7 +1,7 @@
 //account-list.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { AccountsService } from '../alamiya.service.service';
+import { AccountsService } from '../exchange.service';
 import { Account } from '../account';
 import { Location } from '@angular/common';
 import { AccountFormComponent } from '../add-new-account-dialog/add-new-account-dialog.component';

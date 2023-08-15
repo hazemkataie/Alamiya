@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AccountsService } from './alamiya.service.service';
+import { AccountsService } from './exchange.service';
 import { LoadingService } from './loading.service';
 import { AccountFormComponent } from './add-new-account-dialog/add-new-account-dialog.component';
 import { AccountListComponent } from './account-list/account-list.component';
