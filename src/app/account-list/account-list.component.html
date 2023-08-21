@@ -56,6 +56,9 @@
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="editAccountDialog(account)">Edit Account</button>
             <button mat-menu-item (click)="deleteAccount(account)">Delete Account</button>
+            
+            <button mat-menu-item (click)="getAccountInfo(account)" *ngIf="account.status">Account Info</button>
+            
             <button mat-menu-item (click)="toggleStatus(account)">{{ account.status ? 'Disconnect' : 'Connect' }}</button>
           </mat-menu>
         </td>
@@ -70,6 +73,15 @@
     <button mat-stroked-button type="button" color="primary" (click)="addAccountDialog()">Add New Account</button>
     <button mat-flat-button type="button" color="warn" (click)="deleteSelectedAccounts()" *ngIf="hasSelectedAccounts()">Delete Selected Accounts</button>
     <button mat-flat-button type="button" color="primary" (click)="toggleSelectedAccountsStatus()" *ngIf="selectedAccountsStatusDifference()">{{selectedAccountsStatus() ? 'Disconnect' : 'Connect' }}</button>
+    
+    <div *ngIf="accountInfo">
+      <h2>Account Info</h2>
+      <ul>
+        <li *ngFor="let item of accountInfo | keyvalue">
+          <strong>{{ item.key }}:</strong> {{ item.value }}
+        </li>
+      </ul>
+    </div>
     
     <div *ngIf="loadingService.isLoadingActive()" class="loading-overlay">
       <div class="loading-spinner"></div>
